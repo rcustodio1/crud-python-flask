@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Lista de Usuários</h1>
+    <a href="{{ url_for('add') }}">➕ Adicionar Novo Usuário</a>
+    <br><br>
+
+    {% if users %}
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user['id'] }}</td>
+                    <td>{{ user['name'] }}</td>
+                    <td>{{ user['email'] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit', id=user['id']) }}">✏️ Editar</a> |
+                        <a href="{{ url_for('delete', id=user['id']) }}" onclick="return confirm('Tem certeza que deseja excluir?');">🗑️ Deletar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum usuário cadastrado.</p>
+    {% endif %}
+</body>
+</html>
